@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Design Playbook | Principal Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            900: '#0f172a',
+                        },
+                        brand: {
+                            blue: '#3b82f6',
+                            teal: '#14b8a6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header -->
+    <nav class="bg-slate-900 text-white border-b-4 border-brand-blue shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-book-atlas text-brand-teal text-xl"></i>
+                <span class="font-bold text-lg tracking-tight uppercase">System Design <span class="text-brand-blue font-light">Playbook</span></span>
+            </div>
+            <div class="flex gap-6 text-sm font-medium text-slate-300">
+                <a href="https://github.com" class="hover:text-white transition-colors">GitHub Repository</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="bg-white border-b border-slate-200 py-16">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+                Architectural <span class="text-brand-blue">Decision Records</span> & Simulations
+            </h1>
+            <p class="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
+                A personal repository of complex distributed systems analysis. This playbook documents high-scale architecture, internal trade-offs, and interactive simulations for technical deep-dives.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-slate-800">Systems Catalog</h2>
+            <span class="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-1 rounded">1 Entry</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Global Sequencer Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+                <div class="p-6 flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-microchip text-brand-blue"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900">Global Sequencer</h3>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                        High-throughput distributed ID generation at 10M+ TPS. Deep-dive into Snowflake algorithms, LSM-Tree storage internals, and Zookeeper coordination.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-100 text-slate-500 text-[10px] uppercase font-bold px-2 py-1 rounded">Distributed Systems</span>
+                        <span class="bg-slate-100 text-slate-500 text-[10px] uppercase font-bold px-2 py-1 rounded">LSM-Tree</span>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 border-t border-slate-100 flex gap-4">
+                    <a href="Systems/global-sequencer/README.md" class="flex-1 text-center bg-brand-blue hover:bg-blue-600 text-white py-2 rounded text-sm font-bold transition-colors">
+                        Read ADR
+                    </a>
+                    <a href="Systems/global-sequencer/global_sequencer_dashboard.html" class="flex-1 text-center border border-slate-300 hover:border-brand-blue hover:text-brand-blue text-slate-700 py-2 rounded text-sm font-bold transition-colors">
+                        Simulator
+                    </a>
+                </div>
+            </div>
+
+            <!-- Future Placeholder Card -->
+            <div class="border-2 border-dashed border-slate-300 rounded-xl p-8 flex flex-col items-center justify-center text-center opacity-60">
+                <i class="fa-solid fa-plus text-slate-400 text-3xl mb-4"></i>
+                <h3 class="font-bold text-slate-500 mb-2">Upcoming Design</h3>
+                <p class="text-xs text-slate-400">Next deep-dive: Distributed Rate Limiter or Real-time Analytics Engine.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-slate-200 bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm text-slate-500">
+                Built with the "Docs-as-Code" philosophy. Hosted on GitHub Pages.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
