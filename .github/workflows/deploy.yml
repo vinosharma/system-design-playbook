@@ -1,8 +1,8 @@
-# This workflow is configured to deploy a static site to GitHub Pages
+# This workflow is configured to deploy a static HTML site to GitHub Pages
 name: Deploy Static Content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the default branch (including merges from PRs)
   push:
     branches: ["main"]
 
@@ -15,14 +15,12 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying static content
   deploy:
     environment:
       name: github-pages
@@ -38,7 +36,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository (contains index.html)
+          # We upload the root directory where your index.html lives
           path: '.'
 
       - name: Deploy to GitHub Pages
