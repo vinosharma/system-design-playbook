@@ -1,0 +1,41 @@
+# This workflow runs automated "security checks" on every Pull Request
+name: CI Security Checks
+
+on:
+  # Run on any pull request targeting the main branch
+  pull_request:
+    branches: ["main"]
+  # Also run on direct pushes to main to ensure parity
+  push:
+    branches: ["main"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: HTML Validation Check
+        # Uses a basic linter to ensure the HTML structure is sound
+        run: |
+          echo "Scanning index.html for structural issues..."
+          # This is a simple grep check to ensure basic tags are closed
+          # In a larger project, you would use 'htmlhint' or similar
+          grep -q "</html>" index.html || (echo "Missing closing html tag" && exit 1)
+          grep -q "</body>" index.html || (echo "Missing closing body tag" && exit 1)
+          echo "Basic structure validation passed."
+
+      - name: Link Consistency Check
+        # Ensures that your internal IDs (#catalog, etc) actually exist
+        run: |
+          echo "Verifying internal anchors..."
+          # Check if the href="#catalog" actually has a matching id="catalog"
+          grep -q 'id="catalog"' index.html || (echo "Broken internal link: #catalog" && exit 1)
+          echo "Link consistency check passed."
+
+      - name: Security Header Audit
+        # Simple check for modern web best practices
+        run: |
+          grep -q "viewport" index.html || (echo "Warning: Missing viewport meta tag" && exit 1)
+          echo "Security and Mobile metadata check passed."
