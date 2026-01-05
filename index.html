@@ -3,7 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basecase | Architecture GUIDE</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Basecase Architecture Guide | System Design Reference & Learning Notes</title>
+    <meta name="description" content="Comprehensive system design patterns, distributed systems concepts, and architecture decision records. Learn about consensus algorithms, storage engines, and scalability patterns.">
+    <meta name="keywords" content="system design, distributed systems, architecture patterns, consensus algorithms, LSM trees, Raft, Bloom filters, Snowflake ID, database internals">
+    <meta name="author" content="Basecase Engineering">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="Basecase Architecture Guide | System Design Reference">
+    <meta property="og:description" content="Learn distributed systems, consensus algorithms, and storage patterns with detailed architecture decision records.">
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="Basecase Architecture Guide | System Design Reference">
+    <meta property="twitter:description" content="Learn distributed systems, consensus algorithms, and storage patterns with detailed architecture decision records.">
+    <meta property="twitter:image" content="https://your-domain.com/og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-domain.com/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🏗️</text></svg>">
     
     <!-- THEME CRITICAL: Immediate execution -->
     <script>
@@ -43,6 +68,27 @@
             }
         }
     </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Basecase Architecture Guide",
+        "description": "System design patterns and distributed systems learning resource",
+        "url": "https://your-domain.com",
+        "sameAs": [
+            "https://github.com/your-username"
+        ],
+        "educationalLevel": "Intermediate to Advanced",
+        "teaches": [
+            "Distributed Systems",
+            "System Design",
+            "Database Internals",
+            "Consensus Algorithms"
+        ]
+    }
+    </script>
 </head>
 <body class="font-sans antialiased">
 
@@ -59,6 +105,16 @@
             </div>
             
             <div class="flex items-center gap-2">
+                <!-- Search Button -->
+                <button onclick="toggleSearch()" class="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 text-sm">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    <span>Search</span>
+                    <kbd class="px-1.5 py-0.5 text-xs bg-zinc-200 dark:bg-zinc-700 rounded">⌘K</kbd>
+                </button>
+                <button onclick="toggleSearch()" class="md:hidden p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+                
                 <button onclick="toggleDarkMode()" class="theme-btn rounded-xl hover:bg-zinc-200 dark:hover:bg-zinc-800" id="themeToggle">
                     <i data-lucide="sun" class="icon-layer sun-icon w-5 h-5"></i>
                     <i data-lucide="moon" class="icon-layer moon-icon w-5 h-5"></i>
@@ -70,6 +126,24 @@
             </div>
         </div>
     </nav>
+
+    <!-- Inline Expanding Search -->
+    <div id="searchContainer" class="border-b hidden" style="background-color: var(--bg-main); border-color: var(--border-ui);">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="card-surface rounded-xl p-4 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                    <i data-lucide="search" class="w-5 h-5 text-zinc-400"></i>
+                    <input type="text" id="searchInput" placeholder="Search concepts, tags, descriptions..." 
+                        class="flex-1 bg-transparent outline-none text-base"
+                        style="color: var(--text-primary);">
+                    <button onclick="toggleSearch()" class="p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
+                        <i data-lucide="x" class="w-5 h-5 text-zinc-400"></i>
+                    </button>
+                </div>
+                <div id="searchResults" class="max-h-[400px] overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div id="mainContent">
@@ -93,7 +167,33 @@
 
         <!-- Catalog Index -->
         <div id="catalogView">
-            <main class="max-w-7xl mx-auto px-6 py-24">
+            <main class="max-w-7xl mx-auto px-6 py-12">
+                <!-- Filters & Stats -->
+                <div class="mb-8 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                    <div class="flex items-center gap-4 flex-wrap">
+                        <button onclick="filterByCategory('all')" class="filter-btn active" data-filter="all">
+                            All <span class="count" id="count-all">4</span>
+                        </button>
+                        <button onclick="filterByCategory('Distributed')" class="filter-btn" data-filter="Distributed">
+                            Distributed <span class="count" id="count-Distributed">1</span>
+                        </button>
+                        <button onclick="filterByCategory('Storage')" class="filter-btn" data-filter="Storage">
+                            Storage <span class="count" id="count-Storage">1</span>
+                        </button>
+                        <button onclick="filterByCategory('Consistency')" class="filter-btn" data-filter="Consistency">
+                            Consistency <span class="count" id="count-Consistency">1</span>
+                        </button>
+                        <button onclick="filterByCategory('Persistence')" class="filter-btn" data-filter="Persistence">
+                            Persistence <span class="count" id="count-Persistence">1</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="toggleFavoritesOnly()" class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800" id="favoritesBtn" title="Show favorites only">
+                            <i data-lucide="star" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="systemsGrid"></div>
             </main>
         </div>

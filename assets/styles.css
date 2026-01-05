@@ -146,3 +146,162 @@ body {
     stroke-dasharray: 4; 
     fill: none; 
 }
+
+/* Filter Buttons */
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: transparent;
+    border: 1px solid var(--border-ui);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-btn:hover {
+    background-color: var(--bg-surface);
+    border-color: var(--brand-primary);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: white;
+}
+
+.filter-btn .count {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.filter-btn.active .count {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-beginner {
+    background-color: #10b981;
+    color: white;
+}
+
+.badge-intermediate {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.badge-advanced {
+    background-color: #ef4444;
+    color: white;
+}
+
+.badge-tag {
+    background-color: var(--border-ui);
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+}
+
+/* Favorite Star */
+.favorite-star {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.favorite-star:hover {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+}
+
+.favorite-star.is-favorite {
+    color: #eab308;
+}
+
+/* Inline Search */
+#searchContainer {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 0;
+    overflow: hidden;
+}
+
+#searchContainer:not(.hidden) {
+    max-height: 600px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#searchContainer:not(.hidden) > div {
+    animation: slideDown 0.3s ease;
+}
+
+.search-result-item {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+    background-color: var(--border-ui);
+}
+
+.search-highlight {
+    background-color: rgba(37, 99, 235, 0.2);
+    font-weight: 600;
+    color: var(--brand-primary);
+}
+
+/* Related Concepts */
+.related-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-ui);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.related-chip:hover {
+    border-color: var(--brand-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
