@@ -123,10 +123,267 @@ let SYSTEMS = [
     }
 ];
 
+// Roadmap data structure
+const ROADMAP_MODULES = [
+    {
+        id: "00-foundations",
+        number: "00",
+        title: "Foundations",
+        icon: "layers",
+        difficulty: "beginner",
+        estimatedTime: "2-3 hours",
+        prerequisites: [],
+        description: "Master the building blocks - understand what makes systems scale and why certain patterns exist.",
+        topics: [
+            { title: "System Design Overview", description: "Goals, trade-offs, and the 'Scale vs. Complexity' curve", pattern: null },
+            { title: "Core Metrics", description: "Scalability, Latency (P99/P99.9), Throughput, Reliability, and Availability", pattern: null },
+            { title: "Networking", description: "TCP/UDP, QUIC/HTTP3, DNS, and Anycast Load Balancing", pattern: null },
+            { title: "Consistent Hashing", description: "Distributed data partitioning without central coordination", pattern: null },
+            { title: "Bloom Filters", description: "Probabilistic data structures for membership testing", pattern: "bloom-filter" },
+            { title: "Skip Lists", description: "Fast search in ordered sequences", pattern: null },
+            { title: "Merkle Trees", description: "Efficient data verification in distributed systems", pattern: null }
+        ]
+    },
+    {
+        id: "01-requirements",
+        number: "01",
+        title: "Requirements & Constraints",
+        icon: "file-text",
+        difficulty: "beginner",
+        estimatedTime: "1-2 hours",
+        prerequisites: ["00-foundations"],
+        description: "Learn to translate business needs into technical specifications and calculate realistic capacity needs.",
+        topics: [
+            { title: "Functional vs Non-functional", description: "What the system does vs how well it does it", pattern: null },
+            { title: "Capacity Planning", description: "Back-of-the-envelope estimations for DAU, Storage, and Bandwidth", pattern: null },
+            { title: "Latency Budgeting", description: "Calculating the 'Time to First Byte' across distributed hops", pattern: null },
+            { title: "API Contracts", description: "Defining strict schemas with Protocol Buffers and OpenAPI", pattern: null }
+        ]
+    },
+    {
+        id: "02-patterns",
+        number: "02",
+        title: "Core Architectural Patterns",
+        icon: "grid",
+        difficulty: "intermediate",
+        estimatedTime: "3-4 hours",
+        prerequisites: ["00-foundations", "01-requirements"],
+        description: "Understand the fundamental patterns that shape modern system architectures.",
+        topics: [
+            { title: "Modular Monoliths", description: "When NOT to use microservices - the 'Microservices First' trap", pattern: null },
+            { title: "Event-Driven Architecture", description: "Async communication, Sagas, and Change Data Capture (CDC)", pattern: null },
+            { title: "Serverless Patterns", description: "FaaS economics and when Lambda/Cloud Functions make sense", pattern: null }
+        ]
+    },
+    {
+        id: "03-scalability",
+        number: "03",
+        title: "Scalability Patterns",
+        icon: "trending-up",
+        difficulty: "intermediate",
+        estimatedTime: "4-5 hours",
+        prerequisites: ["02-patterns"],
+        description: "Scale from thousands to millions of users - learn horizontal scaling, caching, and queuing patterns.",
+        topics: [
+            { title: "Horizontal Scaling", description: "The 'Shared Nothing' architecture and load distribution", pattern: null },
+            { title: "Database Sharding", description: "Vertical vs Horizontal Sharding and Rebalancing strategies", pattern: null },
+            { title: "Caching Strategies", description: "CDN Edge, Redis/Memcached patterns, and Cache Invalidation", pattern: null },
+            { title: "Message Queues", description: "Kafka vs RabbitMQ vs SQS - when to use which", pattern: null }
+        ]
+    },
+    {
+        id: "04-data",
+        number: "04",
+        title: "Data Storage & Consistency",
+        icon: "database",
+        difficulty: "advanced",
+        estimatedTime: "5-6 hours",
+        prerequisites: ["03-scalability"],
+        description: "Master database internals, consistency models, and replication strategies for distributed data.",
+        topics: [
+            { title: "ACID vs BASE vs NewSQL", description: "When to use Postgres vs MongoDB vs CockroachDB", pattern: null },
+            { title: "Consistency Models", description: "Linearizability, Sequential, and Eventual Consistency trade-offs", pattern: "distributed-consensus" },
+            { title: "LSM-Tree Storage", description: "How modern databases achieve write performance", pattern: "lsm-tree" },
+            { title: "Multi-Region Replication", description: "Quorum-based writes and conflict resolution", pattern: null },
+            { title: "Disaster Recovery", description: "PITR (Point-in-Time Recovery) and backup strategies", pattern: null }
+        ]
+    },
+    {
+        id: "05-api",
+        number: "05",
+        title: "API Design & Microservices",
+        icon: "share-2",
+        difficulty: "intermediate",
+        estimatedTime: "3-4 hours",
+        prerequisites: ["02-patterns"],
+        description: "Design robust APIs and build resilient microservice architectures.",
+        topics: [
+            { title: "REST vs GraphQL vs gRPC", description: "Choosing the right API protocol for your use case", pattern: null },
+            { title: "API Gateway", description: "Authentication offloading, SSL termination, and BFF pattern", pattern: null },
+            { title: "Rate Limiting", description: "Token bucket vs Leaky bucket algorithms", pattern: null },
+            { title: "Circuit Breaker", description: "Preventing cascade failures in distributed systems", pattern: null }
+        ]
+    },
+    {
+        id: "06-observability",
+        number: "06",
+        title: "Observability & Monitoring",
+        icon: "activity",
+        difficulty: "intermediate",
+        estimatedTime: "3-4 hours",
+        prerequisites: ["05-api"],
+        description: "Build production-ready systems with comprehensive logging, metrics, and tracing.",
+        topics: [
+            { title: "Structured Logging", description: "OpenTelemetry and Distributed Tracing with Jaeger/Zipkin", pattern: null },
+            { title: "SLIs/SLOs/SLAs", description: "Defining and monitoring service level objectives", pattern: null },
+            { title: "Chaos Engineering", description: "Injecting latency/failure in production safely", pattern: null }
+        ]
+    },
+    {
+        id: "07-reliability",
+        number: "07",
+        title: "Fault Tolerance & Reliability",
+        icon: "shield",
+        difficulty: "advanced",
+        estimatedTime: "4-5 hours",
+        prerequisites: ["06-observability"],
+        description: "Design systems that survive failures - redundancy, degradation, and recovery patterns.",
+        topics: [
+            { title: "Redundancy Patterns", description: "N+1, Active-Active multi-region deployments", pattern: null },
+            { title: "Graceful Degradation", description: "Designing 'Fail-Soft' features and Load Shedding", pattern: null },
+            { title: "Idempotency", description: "Safe retries in distributed systems", pattern: null },
+            { title: "Saga Pattern", description: "Distributed transactions and compensation logic", pattern: null }
+        ]
+    },
+    {
+        id: "08-edge",
+        number: "08",
+        title: "Edge Computing & CDN",
+        icon: "globe",
+        difficulty: "advanced",
+        estimatedTime: "3-4 hours",
+        prerequisites: ["03-scalability"],
+        description: "Push computation to the edge - reduce latency and improve user experience globally.",
+        topics: [
+            { title: "Edge Functions", description: "Running WASM at the edge (Cloudflare Workers/Fastly)", pattern: null },
+            { title: "Geo-Routing", description: "Latency-based routing and Regional Data Sovereignty", pattern: null },
+            { title: "CDN Strategies", description: "Cache invalidation and origin shielding", pattern: null }
+        ]
+    },
+    {
+        id: "09-security",
+        number: "09",
+        title: "Security at Scale",
+        icon: "lock",
+        difficulty: "intermediate",
+        estimatedTime: "3-4 hours",
+        prerequisites: ["05-api"],
+        description: "Secure your systems - authentication, authorization, and encryption patterns.",
+        topics: [
+            { title: "OAuth2 & OIDC", description: "Modern authentication flows and JWT best practices", pattern: null },
+            { title: "Zero-Trust Architecture", description: "ZTNA and never trusting the network", pattern: null },
+            { title: "Encryption Patterns", description: "At Rest (KMS/HSM) and in Transit (mTLS)", pattern: null }
+        ]
+    },
+    {
+        id: "10-cloud",
+        number: "10",
+        title: "Cloud Native Architecture",
+        icon: "cloud",
+        difficulty: "advanced",
+        estimatedTime: "5-6 hours",
+        prerequisites: ["05-api", "07-reliability"],
+        description: "Master containers, orchestration, and infrastructure-as-code for cloud-native systems.",
+        topics: [
+            { title: "Kubernetes Internals", description: "Pods, Services, Deployments, and when NOT to use K8s", pattern: null },
+            { title: "Service Mesh", description: "Istio/Linkerd for traffic management and observability", pattern: null },
+            { title: "GitOps", description: "Infrastructure as Code with Terraform/Crossplane and ArgoCD", pattern: null }
+        ]
+    },
+    {
+        id: "11-streaming",
+        number: "11",
+        title: "Real-time & Stream Processing",
+        icon: "radio",
+        difficulty: "advanced",
+        estimatedTime: "4-5 hours",
+        prerequisites: ["04-data"],
+        description: "Build real-time systems - streaming data pipelines and event processing at scale.",
+        topics: [
+            { title: "WebSockets vs SSE", description: "Choosing the right protocol for real-time communication", pattern: null },
+            { title: "Kafka Streams", description: "State management in stream processing", pattern: null },
+            { title: "Flink & Spark", description: "Batch vs stream processing trade-offs", pattern: null }
+        ]
+    },
+    {
+        id: "12-ai",
+        number: "12",
+        title: "AI/ML Infrastructure",
+        icon: "brain",
+        difficulty: "advanced",
+        estimatedTime: "5-6 hours",
+        prerequisites: ["04-data", "11-streaming"],
+        description: "Build AI-powered systems - vector search, RAG pipelines, and LLM inference at scale.",
+        topics: [
+            { title: "Vector Databases", description: "Pinecone, Milvus, Weaviate - similarity search patterns", pattern: null },
+            { title: "RAG Architecture", description: "Building Embedding Pipelines and Retrieval-Augmented Generation", pattern: null },
+            { title: "LLM Serving", description: "High throughput inference and minimizing TTFT (Time to First Token)", pattern: null }
+        ]
+    },
+    {
+        id: "13-optimization",
+        number: "13",
+        title: "Cost & Performance",
+        icon: "zap",
+        difficulty: "advanced",
+        estimatedTime: "4-5 hours",
+        prerequisites: ["10-cloud"],
+        description: "Optimize for cost and performance - profiling, tuning, and FinOps strategies.",
+        topics: [
+            { title: "FinOps Strategies", description: "Cost-effective architectures and Spot Instance optimization", pattern: null },
+            { title: "Performance Profiling", description: "JVM/Go/Rust profiling and bottleneck identification", pattern: null },
+            { title: "Kernel Tuning", description: "Linux performance tuning with eBPF", pattern: null }
+        ]
+    },
+    {
+        id: "14-casestudies",
+        number: "14",
+        title: "Real-World Case Studies",
+        icon: "book-open",
+        difficulty: "intermediate",
+        estimatedTime: "6-8 hours",
+        prerequisites: ["03-scalability", "04-data", "05-api"],
+        description: "Learn from the best - analyze how top companies solve complex system design problems.",
+        topics: [
+            { title: "Amazon Order Management", description: "Distributed transactions at e-commerce scale", pattern: null },
+            { title: "Netflix CDN", description: "Microservices and content delivery architecture", pattern: null },
+            { title: "TikTok Recommendation", description: "Real-time ML inference and Push vs Pull models", pattern: null },
+            { title: "Uber Real-time Maps", description: "Geospatial indexing and location tracking", pattern: null }
+        ]
+    },
+    {
+        id: "15-capstone",
+        number: "15",
+        title: "Capstone Projects",
+        icon: "award",
+        difficulty: "advanced",
+        estimatedTime: "10-15 hours",
+        prerequisites: ["04-data", "07-reliability", "11-streaming"],
+        description: "Apply everything you've learned - design complete systems from scratch.",
+        topics: [
+            { title: "Design a Global Chat", description: "Multi-region WebSocket synchronization with consistency", pattern: null },
+            { title: "Design a Payment System", description: "Distributed transactions, idempotency, and fraud detection", pattern: null },
+            { title: "Design a Multiplayer Game", description: "Real-time state synchronization with UDP/QUIC", pattern: null },
+            { title: "Design a Search Engine", description: "Distributed crawling, indexing, and vector search", pattern: null }
+        ]
+    }
+];
+
 // State management
 let currentFilter = 'all';
 let showFavoritesOnly = false;
 let filteredSystems = [];
+let currentView = 'patterns'; // Track current view
 
 /**
  * Calculate estimated read time based on content
@@ -200,6 +457,28 @@ const StorageManager = {
         const allNotes = JSON.parse(localStorage.getItem('systemNotes') || '{}');
         allNotes[id] = notes;
         localStorage.setItem('systemNotes', JSON.stringify(allNotes));
+    },
+    
+    // Roadmap progress tracking
+    getCompletedModules() {
+        return JSON.parse(localStorage.getItem('completedModules') || '[]');
+    },
+    
+    toggleModuleComplete(moduleId) {
+        const completed = this.getCompletedModules();
+        const index = completed.indexOf(moduleId);
+        if (index > -1) {
+            completed.splice(index, 1);
+        } else {
+            completed.push(moduleId);
+        }
+        localStorage.setItem('completedModules', JSON.stringify(completed));
+        updateRoadmapProgress();
+        return completed.includes(moduleId);
+    },
+    
+    isModuleCompleted(moduleId) {
+        return this.getCompletedModules().includes(moduleId);
     }
 };
 
@@ -262,10 +541,12 @@ function performSearch(query) {
     });
     
     const resultsHTML = results.length > 0 
-        ? results.map(sys => `
-            <div class="search-result-item" onclick="showDetail('${sys.id}'); toggleSearch();">
+        ? results.map(sys => {
+            const categoryClass = `category-${sys.category.toLowerCase()}`;
+            return `
+            <div class="search-result-item ${categoryClass}" onclick="showDetail('${sys.id}'); toggleSearch();">
                 <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <div class="w-10 h-10 category-icon rounded-lg flex items-center justify-center text-white flex-shrink-0">
                         <i data-lucide="${sys.icon}" class="w-5 h-5"></i>
                     </div>
                     <div class="flex-1 min-w-0">
@@ -278,7 +559,7 @@ function performSearch(query) {
                     </div>
                 </div>
             </div>
-        `).join('')
+        `}).join('')
         : '<p class="text-zinc-400 text-center py-8">No results found</p>';
     
     document.getElementById('searchResults').innerHTML = resultsHTML;
@@ -367,18 +648,21 @@ function renderSystems() {
             'advanced': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
         }[sys.difficulty] || '';
         
+        // Category-specific styling
+        const categoryClass = `category-${sys.category.toLowerCase()}`;
+        
         return `
-        <div class="card-surface rounded-3xl p-8 flex flex-col h-full relative">
+        <div class="card-surface rounded-3xl p-8 flex flex-col h-full relative ${categoryClass}">
             <button onclick="toggleFavorite('${sys.id}')" class="favorite-star ${isFav ? 'is-favorite' : ''}">
                 <i data-lucide="star" class="w-5 h-5 ${isFav ? 'fill-current' : ''}"></i>
             </button>
             
-            <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white mb-6 shadow-inner">
+            <div class="w-12 h-12 category-icon rounded-xl flex items-center justify-center text-white mb-6 shadow-inner">
                 <i data-lucide="${sys.icon}" class="w-5 h-5"></i>
             </div>
             
             <div class="flex items-center gap-2 mb-3">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-600">${sys.category}</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest" style="color: var(--category-color, var(--brand-primary))">${sys.category}</span>
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${difficultyColor}">${sys.difficulty}</span>
             </div>
             
@@ -590,13 +874,178 @@ async function loadSystemsData() {
 }
 
 /**
+ * View Management - Switch between Concepts and Roadmap
+ */
+function showView(view) {
+    currentView = view;
+    
+    // Update navigation tabs
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(`nav${view.charAt(0).toUpperCase() + view.slice(1)}`).classList.add('active');
+    
+    // Show/hide views
+    if (view === 'patterns') {
+        document.getElementById('catalogView').classList.remove('hidden');
+        document.getElementById('roadmapView').classList.add('hidden');
+        document.getElementById('detailView').classList.add('hidden');
+    } else if (view === 'roadmap') {
+        document.getElementById('catalogView').classList.add('hidden');
+        document.getElementById('roadmapView').classList.remove('hidden');
+        document.getElementById('detailView').classList.add('hidden');
+        renderRoadmap();
+    }
+}
+
+/**
+ * Render Roadmap Modules
+ */
+function renderRoadmap() {
+    const container = document.getElementById('roadmapModules');
+    const completedModules = StorageManager.getCompletedModules();
+    
+    container.innerHTML = ROADMAP_MODULES.map(module => {
+        const isCompleted = completedModules.includes(module.id);
+        const availableCount = module.topics.filter(t => t.pattern).length;
+        const totalCount = module.topics.length;
+        
+        // Difficulty badge colors
+        const difficultyColors = {
+            beginner: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+            intermediate: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+            advanced: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'
+        };
+        
+        return `
+            <div class="roadmap-module ${isCompleted ? 'completed' : ''}" id="module-${module.id}">
+                <div class="roadmap-module-header" onclick="toggleModule('${module.id}')">
+                    <div class="flex-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl ${isCompleted ? 'bg-green-500' : 'bg-indigo-600'} flex items-center justify-center text-white flex-shrink-0">
+                                <i data-lucide="${module.icon}" class="w-6 h-6"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs font-mono font-semibold text-zinc-500 dark:text-zinc-400">Module ${module.number}</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full ${difficultyColors[module.difficulty]} font-semibold">${module.difficulty}</span>
+                                    ${isCompleted ? '<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Completed</span>' : ''}
+                                </div>
+                                <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-1">${module.title}</h3>
+                                <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-2">${module.description}</p>
+                                <div class="flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3"></i>
+                                        ${module.estimatedTime}
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="file-text" class="w-3 h-3"></i>
+                                        ${availableCount}/${totalCount} patterns
+                                    </span>
+                                    ${module.prerequisites.length > 0 ? `
+                                        <span class="flex items-center gap-1">
+                                            <i data-lucide="git-branch" class="w-3 h-3"></i>
+                                            Requires: ${module.prerequisites.map(p => ROADMAP_MODULES.find(m => m.id === p)?.number || p).join(', ')}
+                                        </span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                        <button onclick="event.stopPropagation(); toggleModuleComplete('${module.id}')" 
+                                class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                                title="${isCompleted ? 'Mark as incomplete' : 'Mark as complete'}">
+                            <i data-lucide="${isCompleted ? 'check-circle-2' : 'circle'}" class="w-5 h-5 ${isCompleted ? 'text-green-500' : 'text-zinc-400'}"></i>
+                        </button>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform"></i>
+                    </div>
+                </div>
+                <div class="roadmap-module-content">
+                    <div class="px-6 pb-6 pt-2">
+                        <div class="space-y-1">
+                            ${module.topics.map(topic => {
+                                const hasPattern = topic.pattern !== null;
+                                const pattern = hasPattern ? SYSTEMS.find(s => s.id === topic.pattern) : null;
+                                
+                                return `
+                                    <div class="roadmap-topic ${hasPattern ? 'cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg -mx-2 px-2' : ''}" 
+                                         ${hasPattern ? `onclick="showDetail('${topic.pattern}')"` : ''}>
+                                        <div class="roadmap-topic-bullet ${hasPattern ? 'bg-green-500' : ''}"></div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-2">
+                                                <h4 class="font-semibold text-sm text-zinc-900 dark:text-white">${topic.title}</h4>
+                                                ${hasPattern ? '<span class="text-xs px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold">Available</span>' : '<span class="text-xs px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 font-semibold">Coming Soon</span>'}
+                                            </div>
+                                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-0.5">${topic.description}</p>
+                                        </div>
+                                        ${hasPattern ? '<i data-lucide="arrow-right" class="w-4 h-4 text-zinc-400 flex-shrink-0"></i>' : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    // Reinitialize icons
+    lucide.createIcons();
+    updateRoadmapProgress();
+}
+
+/**
+ * Toggle roadmap module expansion
+ */
+function toggleModule(moduleId) {
+    const module = document.getElementById(`module-${moduleId}`);
+    module.classList.toggle('expanded');
+    
+    // Rotate chevron
+    const chevron = module.querySelector('[data-lucide="chevron-down"]');
+    if (module.classList.contains('expanded')) {
+        chevron.style.transform = 'rotate(180deg)';
+    } else {
+        chevron.style.transform = 'rotate(0deg)';
+    }
+}
+
+/**
+ * Toggle module completion status
+ */
+function toggleModuleComplete(moduleId) {
+    StorageManager.toggleModuleComplete(moduleId);
+    renderRoadmap();
+}
+
+/**
+ * Update roadmap progress counter
+ */
+function updateRoadmapProgress() {
+    const countEl = document.getElementById('roadmapProgressCount');
+    if (countEl) {
+        const completed = StorageManager.getCompletedModules().length;
+        countEl.textContent = completed;
+    }
+    
+    // Update hero progress percentage
+    const progressEl = document.getElementById('heroProgressPercent');
+    if (progressEl) {
+        const completed = StorageManager.getCompletedModules().length;
+        const total = ROADMAP_MODULES.length;
+        const percent = Math.round((completed / total) * 100);
+        progressEl.textContent = percent;
+    }
+}
+
+/**
  * Update hero section stats
  */
 function updateHeroStats() {
-    const countEl = document.getElementById('heroConceptCount');
+    const countEl = document.getElementById('heroPatternCount');
     if (countEl) {
         countEl.textContent = SYSTEMS.length;
     }
+    updateRoadmapProgress(); // Also update progress on init
 }
 
 /**
@@ -628,6 +1077,9 @@ document.addEventListener('DOMContentLoaded', () => {
             performSearch(e.target.value);
         });
     }
+    
+    // Set default active view
+    showView('patterns');
 });
 
 /**
