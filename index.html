@@ -96,12 +96,22 @@
     <nav class="sticky top-0 z-50 border-b backdrop-blur-xl" style="background-color: var(--bg-main); border-color: var(--border-ui);">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer group" onclick="showCatalog()">
-                <div class="bg-indigo-600 p-2 rounded-xl shadow-md transition-transform group-hover:scale-105">
+                <div class="bg-cyan-600 p-2 rounded-xl shadow-md transition-transform group-hover:scale-105">
                     <i data-lucide="terminal" class="w-5 h-5 text-white"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-bold text-sm tracking-tight uppercase">Basecase Architecture</span>
+                    <span class="font-bold text-sm tracking-tight uppercase">Scale Decisions</span>
                 </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <div class="hidden md:flex items-center gap-1">
+                <button onclick="showView('patterns')" id="navPatterns" class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                    Patterns
+                </button>
+                <button onclick="showView('roadmap')" id="navRoadmap" class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                    Roadmap
+                </button>
             </div>
             
             <div class="flex items-center gap-2">
@@ -148,58 +158,78 @@
     <!-- Main Content -->
     <div id="mainContent">
         
-        <!-- SIMPLE PROFESSIONAL HERO -->
-        <header id="catalogHero" class="relative pt-20 pb-24 border-b" style="border-color: var(--border-ui);">
+        <!-- INTERACTIVE VISUAL HERO -->
+        <header id="catalogHero" class="relative pt-24 pb-20 border-b overflow-hidden" style="border-color: var(--border-ui);">
+            <!-- Animated Background -->
             <div class="absolute inset-0 hero-grid"></div>
+            <div class="absolute inset-0 hero-nodes">
+                <svg class="w-full h-full opacity-20">
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:rgb(99,102,241);stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:rgb(168,85,247);stop-opacity:0.3" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Connection lines -->
+                    <line x1="15%" y1="30%" x2="35%" y2="50%" stroke="url(#lineGradient)" stroke-width="2" class="hero-line" />
+                    <line x1="35%" y1="50%" x2="65%" y2="50%" stroke="url(#lineGradient)" stroke-width="2" class="hero-line" style="animation-delay: 0.5s" />
+                    <line x1="65%" y1="50%" x2="85%" y2="70%" stroke="url(#lineGradient)" stroke-width="2" class="hero-line" style="animation-delay: 1s" />
+                    <!-- Nodes -->
+                    <circle cx="15%" cy="30%" r="8" class="hero-node" fill="#6366f1" />
+                    <circle cx="35%" cy="50%" r="8" class="hero-node" fill="#8b5cf6" style="animation-delay: 0.3s" />
+                    <circle cx="65%" cy="50%" r="8" class="hero-node" fill="#a855f7" style="animation-delay: 0.6s" />
+                    <circle cx="85%" cy="70%" r="8" class="hero-node" fill="#6366f1" style="animation-delay: 0.9s" />
+                </svg>
+            </div>
+            
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 mb-6">
-                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
-                    <span class="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 dark:text-zinc-400">System Design Reference</span>
+                <div class="max-w-4xl mx-auto text-center">
+                    <!-- Main Headline -->
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6">
+                        From <span class="text-indigo-600 dark:text-indigo-400">"Why not use X?"</span><br/>
+                        to Production-Ready
+                    </h1>
+                    
+                    <!-- Subtitle -->
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-zinc-600 dark:text-zinc-400 mb-10">
+                        Master distributed systems through <strong>Architecture Decision Records</strong>.<br/>
+                        Learn why companies choose Kafka over RabbitMQ, when to shard, and how consensus actually works.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                        <button onclick="toggleSearch()" class="group w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base transition-all active:scale-95 shadow-lg shadow-indigo-600/25">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                            Search Patterns
+                            <kbd class="hidden md:inline-block px-2 py-1 text-xs bg-indigo-700 rounded">⌘K</kbd>
+                        </button>
+                        <button onclick="showView('roadmap')" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border-2 border-zinc-300 dark:border-zinc-700 hover:border-indigo-600 dark:hover:border-indigo-500 font-bold text-base transition-all active:scale-95">
+                            View Roadmap
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
-                
-                <h1 class="text-5xl md:text-6xl font-bold tracking-tight leading-tight mb-6">
-                    Master System Design,<br/>
-                    <span class="text-indigo-600 dark:text-indigo-400">One Concept at a Time.</span>
-                </h1>
-                
-                <p class="text-base md:text-lg max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400 mb-8">
-                    Curated architecture patterns, distributed systems concepts, and engineering decisions. 
-                    Built for learning, optimized for reference.
-                </p>
-                
-                <!-- Quick Stats & Actions -->
-                <div class="flex flex-wrap items-center gap-4 mb-8">
-                    <div class="flex items-center gap-6 px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
+            </div>
+            
+            <!-- Progress Stats Bar -->
+            <div class="absolute bottom-0 left-0 right-0 border-t" style="border-color: var(--border-ui); background: var(--bg-main);">
+                <div class="max-w-7xl mx-auto px-6 py-4">
+                    <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-600 dark:text-zinc-400">
                         <div class="flex items-center gap-2">
                             <i data-lucide="book-open" class="w-4 h-4 text-indigo-500"></i>
-                            <span class="text-sm text-zinc-700 dark:text-zinc-300"><span class="font-semibold text-indigo-600" id="heroConceptCount">4</span> Concepts</span>
+                            <span><span class="font-bold text-zinc-900 dark:text-white" id="heroPatternCount">4</span> Patterns</span>
                         </div>
-                        <div class="w-px h-6 bg-zinc-300 dark:bg-zinc-600"></div>
+                        <div class="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></div>
                         <div class="flex items-center gap-2">
-                            <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i>
-                            <span class="text-sm text-zinc-700 dark:text-zinc-300"><span class="font-semibold text-indigo-600">4</span> Categories</span>
+                            <i data-lucide="map" class="w-4 h-4 text-purple-500"></i>
+                            <span><span class="font-bold text-zinc-900 dark:text-white">16</span> Modules</span>
+                        </div>
+                        <div class="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-4 h-4 text-green-500"></i>
+                            <span><span class="font-bold text-zinc-900 dark:text-white" id="heroProgressPercent">0</span>% Complete</span>
                         </div>
                     </div>
-                    
-                    <button onclick="toggleSearch()" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition-all active:scale-95">
-                        <i data-lucide="search" class="w-4 h-4"></i>
-                        Quick Search
-                        <kbd class="hidden md:inline-block px-2 py-0.5 text-xs bg-blue-700 rounded ml-1">⌘K</kbd>
-                    </button>
-                </div>
-                
-                <!-- Topic Pills -->
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-xs text-zinc-500 dark:text-zinc-400 font-semibold">Popular Topics:</span>
-                    <button onclick="filterByCategory('Distributed')" class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-xs font-semibold text-zinc-700 dark:text-zinc-300 transition-colors">
-                        Distributed Systems
-                    </button>
-                    <button onclick="filterByCategory('Storage')" class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-xs font-semibold text-zinc-700 dark:text-zinc-300 transition-colors">
-                        Storage Engines
-                    </button>
-                    <button onclick="filterByCategory('Consistency')" class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-xs font-semibold text-zinc-700 dark:text-zinc-300 transition-colors">
-                        Consistency
-                    </button>
                 </div>
             </div>
         </header>
@@ -245,6 +275,45 @@
             <div id="detailContent" class="card-surface rounded-[2.5rem] p-10 md:p-16 relative">
                 <!-- Data-driven detail view -->
             </div>
+        </div>
+
+        <!-- Roadmap View -->
+        <div id="roadmapView" class="hidden">
+            <!-- Roadmap Hero -->
+            <header class="relative pt-20 pb-16 border-b" style="border-color: var(--border-ui);">
+                <div class="absolute inset-0 hero-grid"></div>
+                <div class="max-w-7xl mx-auto px-6 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Learning Path 2026</span>
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-4">
+                        Modern System Design <span class="text-indigo-600 dark:text-indigo-400">Roadmap</span>
+                    </h1>
+                    
+                    <p class="text-base md:text-lg max-w-3xl leading-relaxed text-zinc-600 dark:text-zinc-400 mb-6">
+                        A comprehensive, structured guide from foundational networking to global-scale AI architectures. 
+                        Focused on Cloud-Native, AI-Integrated, and Edge-First patterns.
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
+                            <i data-lucide="map" class="w-4 h-4 text-indigo-500"></i>
+                            <span class="text-sm text-zinc-700 dark:text-zinc-300"><span class="font-semibold text-indigo-600" id="roadmapModuleCount">16</span> Modules</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i>
+                            <span class="text-sm text-zinc-700 dark:text-zinc-300"><span class="font-semibold text-indigo-600" id="roadmapProgressCount">0</span> Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Roadmap Content -->
+            <main class="max-w-7xl mx-auto px-6 py-16">
+                <div class="space-y-4" id="roadmapModules"></div>
+            </main>
         </div>
 
     </div>
