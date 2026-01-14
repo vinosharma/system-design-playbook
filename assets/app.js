@@ -756,7 +756,7 @@ function showDetail(id) {
 
     content.innerHTML = `
         <!-- Breadcrumbs -->
-        <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-6\">
+        <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-12">
             <button onclick="showCatalog()" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Home</button>
             <i data-lucide="chevron-right" class="w-3 h-3"></i>
             <span class="text-zinc-700 dark:text-zinc-300">${sys.category}</span>
@@ -765,9 +765,6 @@ function showDetail(id) {
         </div>
         
         <div class="mb-16">
-            <button onclick="showCatalog()" class="group flex items-center gap-2 text-sm font-semibold mb-8 text-zinc-600 hover:text-cyan-600 dark:text-zinc-400 dark:hover:text-cyan-400 transition-colors">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Catalog
-            </button>
             <div class="flex items-start justify-between gap-4 mb-6">
                 <div class="inline-flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-cyan-600"></span>
