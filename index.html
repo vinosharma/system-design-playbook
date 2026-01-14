@@ -45,6 +45,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- Tailwind Configuration -->
     <script>
@@ -112,6 +113,9 @@
                 </button>
                 <button onclick="showView('roadmap')" id="navRoadmap" class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
                     Roadmap
+                </button>
+                <button onclick="showView('cheatsheet')" id="navCheatsheet" class="nav-tab px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                    Estimation Guide
                 </button>
             </div>
             
@@ -366,6 +370,15 @@
             <!-- Roadmap Content -->
             <main class="max-w-7xl mx-auto px-6 py-16">
                 <div class="space-y-4" id="roadmapModules"></div>
+            </main>
+        </div>
+
+        <!-- Fundamentals View -->
+        <div id="cheatsheetView" class="hidden">
+            <main class="max-w-5xl mx-auto px-6 py-16">
+                <div class="prose prose-zinc dark:prose-invert prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-12 prose-h3:text-xl prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-code:text-cyan-600 dark:prose-code:text-cyan-400 prose-pre:bg-zinc-900 prose-pre:text-zinc-100 max-w-none" id="cheatsheetContent">
+                    <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
+                </div>
             </main>
         </div>
 

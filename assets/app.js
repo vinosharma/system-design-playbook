@@ -887,18 +887,73 @@ function showView(view) {
     if (view === 'patterns') {
         document.getElementById('catalogView').classList.remove('hidden');
         document.getElementById('roadmapView').classList.add('hidden');
+        document.getElementById('cheatsheetView').classList.add('hidden');
         document.getElementById('detailView').classList.add('hidden');
     } else if (view === 'roadmap') {
         document.getElementById('catalogView').classList.add('hidden');
         document.getElementById('roadmapView').classList.remove('hidden');
+        document.getElementById('cheatsheetView').classList.add('hidden');
         document.getElementById('detailView').classList.add('hidden');
         renderRoadmap();
+    } else if (view === 'cheatsheet') {
+        document.getElementById('catalogView').classList.add('hidden');
+        document.getElementById('roadmapView').classList.add('hidden');
+        document.getElementById('cheatsheetView').classList.remove('hidden');
+        document.getElementById('detailView').classList.add('hidden');
+        loadCheatSheet();
     }
 }
 
 /**
  * Render Roadmap Modules
  */
+function loadCheatSheet() {
+    const cheatsheetView = document.getElementById('cheatsheetView');
+    
+    // Show loading state
+    cheatsheetView.innerHTML = '<div class="flex items-center justify-center py-20"><div class="text-zinc-500 dark:text-zinc-400">Loading fundamentals...</div></div>';
+    
+    // Fetch and render the HTML page
+    fetch(`./fundamentals.html?v=${Date.now()}`)
+        .then(response => {
+            console.log('Fetch response:', response.status, response.statusText);
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            return response.text();
+        })
+        .then(html => {
+            console.log('HTML loaded');
+            
+            // Parse the HTML and extract the body content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const bodyContent = doc.body.innerHTML;
+            
+            // Replace the entire view content
+            cheatsheetView.innerHTML = bodyContent;
+            
+            // Execute any inline scripts
+            const scripts = cheatsheetView.querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                newScript.textContent = script.textContent;
+                script.parentNode.replaceChild(newScript, script);
+            });
+        })
+        .catch(error => {
+            console.error('Fundamentals load error:', error);
+            cheatsheetView.innerHTML = `
+                <div class="text-center py-20">
+                    <div class="text-red-500 dark:text-red-400 mb-2">Failed to load fundamentals</div>
+                    <div class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">${error.message}</div>
+                    <div class="text-xs text-zinc-400 dark:text-zinc-500">
+                        Check browser console for details.<br>
+                        Server must be running: <code class="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 rounded">python -m http.server 8000</code>
+                    </div>
+                </div>
+            `;
+        });
+}
+
 function renderRoadmap() {
     const container = document.getElementById('roadmapModules');
     const completedModules = StorageManager.getCompletedModules();
