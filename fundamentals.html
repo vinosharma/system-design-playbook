@@ -171,6 +171,165 @@
             
             <div class="space-y-4">
                 
+                <!-- Bits & Bytes Basics -->
+                <details class="card group bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl overflow-hidden">
+                    <summary class="p-6 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors" style="list-style: none;">
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">0️⃣</span>
+                                <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Bits, Bytes & Storage Units (The Basics)</h3>
+                            </div>
+                            <svg class="arrow w-6 h-6 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="px-6 pb-6 space-y-4">
+                        <!-- Bit vs Byte -->
+                        <div class="p-4 bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-400 rounded">
+                            <p class="font-semibold text-zinc-900 dark:text-white mb-2">🔢 The Foundation</p>
+                            <div class="space-y-2 text-zinc-600 dark:text-zinc-400">
+                                <div><strong>1 Bit</strong> = 0 or 1 (binary digit)</div>
+                                <div><strong>1 Byte</strong> = 8 bits = Can store 256 values (0-255)</div>
+                                <div class="text-sm italic">💡 Remember: <strong>B</strong>yte (capital) vs <strong>b</strong>it (lowercase)</div>
+                            </div>
+                        </div>
+
+                        <!-- Storage Units Table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="border-b-2 border-zinc-300 dark:border-zinc-600">
+                                        <th class="text-left py-3 font-bold text-zinc-900 dark:text-white">Unit</th>
+                                        <th class="text-left py-3 font-bold text-zinc-900 dark:text-white">Bytes</th>
+                                        <th class="text-left py-3 font-bold text-zinc-900 dark:text-white">Approximation</th>
+                                        <th class="text-left py-3 font-bold text-zinc-900 dark:text-white">Real World Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                                        <td class="py-3 font-mono font-bold text-cyan-600">1 KB</td>
+                                        <td class="py-3 font-mono">1,024 bytes</td>
+                                        <td class="py-3 text-zinc-500">~1 thousand bytes</td>
+                                        <td class="py-3">Short email (no attachments)</td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                                        <td class="py-3 font-mono font-bold text-green-600">1 MB</td>
+                                        <td class="py-3 font-mono">1,024 KB</td>
+                                        <td class="py-3 text-zinc-500">~1 million bytes</td>
+                                        <td class="py-3">1 minute of MP3 audio</td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                                        <td class="py-3 font-mono font-bold text-purple-600">1 GB</td>
+                                        <td class="py-3 font-mono">1,024 MB</td>
+                                        <td class="py-3 text-zinc-500">~1 billion bytes</td>
+                                        <td class="py-3">HD movie (2 hours)</td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                                        <td class="py-3 font-mono font-bold text-orange-600">1 TB</td>
+                                        <td class="py-3 font-mono">1,024 GB</td>
+                                        <td class="py-3 text-zinc-500">~1 trillion bytes</td>
+                                        <td class="py-3">500 hours of HD video</td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
+                                        <td class="py-3 font-mono font-bold text-red-600">1 PB</td>
+                                        <td class="py-3 font-mono">1,024 TB</td>
+                                        <td class="py-3 text-zinc-500">~1 quadrillion bytes</td>
+                                        <td class="py-3">Facebook's daily photo uploads</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Common Data Sizes -->
+                        <div class="p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-3">📊 Common Data Sizes (Memorize These!)</h4>
+                            <div class="grid md:grid-cols-2 gap-3 text-sm">
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">ASCII character</span>
+                                    <span class="font-mono font-bold text-purple-600">1 byte</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Unicode character (UTF-8)</span>
+                                    <span class="font-mono font-bold text-purple-600">1-4 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Integer (32-bit)</span>
+                                    <span class="font-mono font-bold text-purple-600">4 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Long/Timestamp (64-bit)</span>
+                                    <span class="font-mono font-bold text-purple-600">8 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">UUID</span>
+                                    <span class="font-mono font-bold text-purple-600">16 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">MD5/SHA-256 hash</span>
+                                    <span class="font-mono font-bold text-purple-600">32 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">IPv4 address</span>
+                                    <span class="font-mono font-bold text-purple-600">4 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">IPv6 address</span>
+                                    <span class="font-mono font-bold text-purple-600">16 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">URL (average)</span>
+                                    <span class="font-mono font-bold text-purple-600">~100 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Tweet (280 chars)</span>
+                                    <span class="font-mono font-bold text-purple-600">~300 bytes</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Compressed image</span>
+                                    <span class="font-mono font-bold text-purple-600">~200 KB</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-white/60 dark:bg-zinc-900/60 rounded">
+                                    <span class="text-zinc-700 dark:text-zinc-300">Webpage (with assets)</span>
+                                    <span class="font-mono font-bold text-purple-600">~2 MB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Conversion Tricks -->
+                        <div class="p-4 bg-yellow-50 dark:bg-yellow-950/20 border-l-4 border-yellow-400 rounded">
+                            <p class="font-semibold text-zinc-900 dark:text-white mb-2">💡 Quick Conversion Tricks</p>
+                            <div class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                                <div><strong>Bytes → KB:</strong> Divide by 1,000 (approximation: 1,024)</div>
+                                <div><strong>KB → MB:</strong> Divide by 1,000</div>
+                                <div><strong>MB → GB:</strong> Divide by 1,000</div>
+                                <div class="pt-2 border-t border-yellow-200 dark:border-yellow-800">
+                                    <strong>Example:</strong> 5,000,000 bytes = 5,000 KB = 5 MB
+                                </div>
+                                <div class="pt-2 italic text-xs">
+                                    In interviews, using 1,000 instead of 1,024 is totally acceptable!
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real World Example -->
+                        <div class="p-4 bg-cyan-50 dark:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-800 rounded-lg">
+                            <p class="font-semibold text-zinc-900 dark:text-white mb-2">🎯 Real Interview Question</p>
+                            <div class="space-y-2 text-zinc-600 dark:text-zinc-400">
+                                <p><strong>Q:</strong> Instagram has 1 billion photos. Average photo is 200 KB. How much storage?</p>
+                                <div class="p-3 bg-white/60 dark:bg-zinc-900/60 rounded font-mono text-sm mt-2">
+                                    <div>1 billion photos × 200 KB</div>
+                                    <div>= 1,000,000,000 × 200 KB</div>
+                                    <div>= 200,000,000,000 KB</div>
+                                    <div>= 200,000,000 MB (÷ 1,000)</div>
+                                    <div>= 200,000 GB (÷ 1,000)</div>
+                                    <div class="text-green-600 dark:text-green-400 font-bold">= <strong>200 TB</strong> ✅</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                
                 <!-- ADR -->
                 <details class="card group bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl overflow-hidden">
                     <summary class="p-6 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors" style="list-style: none;">
